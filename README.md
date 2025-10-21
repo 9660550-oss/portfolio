@@ -8,6 +8,6 @@ Detailed description
 
 ![Running Calculator](https://github.com/9660550-oss/portfolio/blob/main/images/calculator.png?raw=true)
 
-* [Windows EXE]()
+* [Windows EXE](https://github.com/9660550-oss/portfolio/blob/main/src/Calculator/windows-amd64.zip)
 * [MacOSX]()
 * [Source Code]()
