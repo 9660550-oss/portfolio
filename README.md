@@ -6,7 +6,7 @@
 
 Detailed description
 
-![Running Calculator][(https://github.com/9660550-oss/portfolio/blob/main/images/calculator.png?raw=true)]
+![Running Calculator](https://github.com/9660550-oss/portfolio/blob/main/images/calculator.png?raw=true)
 
 * [Windows EXE]()
 * [MacOSX]()
