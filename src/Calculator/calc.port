@@ -1,0 +1,197 @@
+//Camilla Codell | 25 Sept | Calculator
+Button[] buttons = new Button[13];
+Button[] numButtons = new Button[10];
+float l, r, result;
+String dVal;
+String op;
+boolean left;
+
+void setup() {
+  size(280, 330);
+  l = 0.0;
+  r = 0.0;
+  result = 0.0;
+  dVal = "0.0";
+  op = " ";
+  left = true;
+  buttons[0] = new Button(40, 205, 40, 95, "CLR", #DB1818, #FC8C8C);
+  numButtons[0] = new Button(40, 30, 40, 40, "0", #1D7BF2, #A0EAF0);
+  numButtons[1] = new Button(90, 30, 40, 40, "1", #1D7BF2, #A0EAF0);
+  numButtons[2] = new Button(140, 30, 40, 40, "2", #1D7BF2, #A0EAF0);
+  numButtons[3] = new Button(190, 30, 40, 40, "3", #1D7BF2, #A0EAF0);
+  numButtons[4] = new Button(240, 30, 40, 40, "4", #1D7BF2, #A0EAF0);
+  numButtons[5] = new Button(40, 80, 40, 40, "5", #1D7BF2, #A0EAF0);
+  numButtons[6] = new Button(90, 80, 40, 40, "6", #1D7BF2, #A0EAF0);
+  numButtons[7] = new Button(140, 80, 40, 40, "7", #1D7BF2, #A0EAF0);
+  numButtons[8] = new Button(190, 80, 40, 40, "8", #1D7BF2, #A0EAF0);
+  numButtons[9] = new Button(240, 80, 40, 40, "9", #1D7BF2, #A0EAF0);
+  buttons[1] = new Button(240, 205, 40, 95, "=", #1D7BF2, #A0EAF0);
+  buttons[2] = new Button(90, 130, 40, 40, "/", #DB1818, #FC8C8C);
+  buttons[3] = new Button(140, 130, 40, 40, "+", #DB1818, #FC8C8C);
+  buttons[4] = new Button(190, 130, 40, 40, "-", #DB1818, #FC8C8C);
+  buttons[5] = new Button(190, 180, 40, 40, "%", #DB1818, #A0EAF0);
+  buttons[6] = new Button(90, 180, 40, 40, "B", #DB1818, #A0EAF0);
+  buttons[7] = new Button(140, 180, 40, 40, "+-", #DB1818, #FC8C8C);
+  buttons[8] = new Button(240, 130, 40, 40, ".", #DB1818, #FC8C8C);
+  buttons[9] = new Button(40, 130, 40, 40, "x", #DB1818, #FC8C8C);
+  buttons[10] = new Button(140, 230, 40, 40, "^", #DB1818, #A0EAF0);
+  buttons[11] = new Button(90, 230, 40, 40, "sqrt", #DB1818, #A0EAF0);
+  buttons[12] = new Button(190, 230, 40, 40, "pi", #DB1818, #A0EAF0);
+}
+
+void draw() {
+  background(0);
+  for (int i = 0; i<buttons.length; i++) {
+    buttons[i].display();
+    buttons[i].hover(mouseX, mouseY);
+  }
+  for (int i = 0; i<numButtons.length; i++) {
+    numButtons[i].display();
+    numButtons[i].hover(mouseX, mouseY);
+  }
+  updateDisplay();
+}
+void keyReleased() {
+  println("Key:0" + key);
+  println("KeyCode:" + keyCode);
+  if (keyCode == 107) {
+    dVal = "0.0";
+    left = false;
+    op = "+";
+  } else if (keyCode == 45 || keyCode == 109) {
+    dVal = "0.0";
+    left = false;
+    op = "-";
+  }else if(keyCode == 49 || keyCode == 97) {
+    
+  }
+}
+
+void mouseReleased() {
+  for (int i = 0; i<buttons.length; i++) {
+    if (buttons[i].over && buttons[i].val.equals("+")) {
+      dVal = "0.0";
+      left = false;
+      op = "+";
+    } else if (buttons[i].over && buttons[i].val.equals("x")) {
+      dVal = "0.0";
+      left = false;
+      op = "*";
+    } else if (buttons[i].over && buttons[i].val.equals("^")) {
+    } else if (buttons[i].over && buttons[i].val.equals("-")) {
+      dVal = "0.0";
+      left = false;
+      op = "-";
+    } else if (buttons[i].over && buttons[i].val.equals("/")) {
+      dVal = "0.0";
+      left = false;
+      op = "/";
+    } else if (buttons[i].over && buttons[i].val.equals("=")) {
+      performCalculation();
+    } else if (buttons[i].over && buttons[i].val.equals("+-")) {
+      if (left) {
+        l = l * -1;
+        dVal = str(l);
+      } else {
+        r = r * -1;
+        dVal = str(r);
+      }
+    } else if (buttons[i].over && buttons[i].val.equals("CLR")) {
+      l = 0.0;
+      r = 0.0;
+      result = 0.0;
+      dVal = "0.0";
+      op = " ";
+      left = true;
+    } else if (buttons[i].over && buttons[i].val.equals("sqrt")) {
+      if (left) {
+        l =sqrt(l);
+        dVal = str(l);
+      } else {
+        r = sqrt(l);
+        dVal = str(r);
+      }
+    } else if (buttons[i].over && buttons[i].val.equals("pi")) {
+      if (left) {
+        l = PI;
+        dVal = str(l);
+      } else {
+        r = PI;
+        dVal = str(r);
+      }
+    } else if (buttons[i].over && buttons[i].val.equals("%")) {
+      if (left) {
+        l = l * 0.01;
+        dVal = str(l);
+      } else {
+        r = r * 0.01;
+        dVal = str(r);
+      }
+    } else if (buttons[i].over && buttons[i].val.equals("B")) {
+      if (left) {
+        dVal = dVal.substring(0, dVal.length() - 1);
+        l = float(dVal);
+      } else {
+        dVal = dVal.substring(0, dVal.length() - 1);
+        r = float(dVal);
+      }
+    }
+  }
+
+  for (int i = 0; i<numButtons.length; i++) {
+    if (numButtons[i].over && left == true) {
+      if (dVal.equals("0.0")) {
+        dVal = (numButtons[i].val);
+        l = float(dVal);
+      } else {
+        dVal += (numButtons[i].val);
+        l = float(dVal);
+      }
+    } else
+      if (numButtons[i].over && left == false) {
+        if (dVal.equals("0.0")) {
+          dVal = (numButtons[i].val);
+          r = float(dVal);
+        } else {
+          dVal += (numButtons[i].val);
+          r = float(dVal);
+        }
+      }
+  }
+
+  println("l:" + l);
+  println("r:" + r);
+  println("result:" + result);
+  println("left:" + left);
+  println("op:" + op);
+}
+void updateDisplay() {
+  rectMode(CORNER);
+  fill(200);
+  rect(14, 260, 250, 50, 5);
+
+  fill(0);
+  textSize(40);
+  textAlign(LEFT);
+  if (dVal.length()<11) {
+    textSize(40);
+  } else if (dVal.length()>11) {
+    textSize(35);
+  }
+  text(dVal, width-260, 300);
+}
+
+void performCalculation() {
+  if (op.equals("+")) {
+    result = l + r;
+  } else if (op.equals("-")) {
+    result = l - r;
+  } else if (op.equals("*")) {
+    result = l * r;
+  } else if (op.equals("/")) {
+    result = l / r;
+  }
+  dVal = str(result);
+  //l = result;
+  //left = true;
+}
